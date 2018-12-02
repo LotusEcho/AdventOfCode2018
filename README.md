@@ -13,7 +13,7 @@ day1/
 ```
 
 ## Schedule
-I'll be posting my solution after I've completed it or at least one day after the particular day has completed, whichever is later.
+I'll be posting my solution after I've completed it or after the leaderboard for that day is full (whichever is later).
 
 ## Don't Cheat
 Seriously, don't use my solutions to "solve" the Advent of code challenges. That's not in line with the spirit of the challenge.
