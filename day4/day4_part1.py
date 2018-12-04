@@ -6,11 +6,11 @@ from helper.input_output import file
 
 
 class Sleep:
-    date = date(1500, 1, 13)
-    start_time = time(hour=0)
-    end_time = time(hour=0)
 
     def __init__(self):
+        self.date = date(1500, 1, 13)
+        self.start_time = time(hour=0)
+        self.end_time = time(hour=0)
         self.minute_set = set()
 
     def get_start(self):
@@ -36,12 +36,11 @@ class Sleep:
 
 
 class Guard:
-    id = 0
-    total_sleep = 0
 
     def __init__(self, id):
         self.id = id
         self.sleeps = set()
+        self.total_sleep = 0
 
     def get_id(self):
         return self.id
