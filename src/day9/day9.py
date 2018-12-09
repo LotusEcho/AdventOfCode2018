@@ -1,5 +1,5 @@
 from collections import defaultdict, deque
-
+from datetime import datetime
 
 def find_high_score(player_num, last_marble_value):
     """
@@ -15,6 +15,8 @@ def find_high_score(player_num, last_marble_value):
     54718
     >>> find_high_score(30, 5807)
     37305
+    >>> find_high_score(470, 72170)
+    388024
 
     :param player_num: The number of players in this game.
     :param last_marble_value: The value of the last marble played before the game ended.
@@ -63,4 +65,7 @@ def find_high_score(player_num, last_marble_value):
 
 
 if __name__ == "__main__":
-    print(f"High score: {find_high_score(470, 72170)}")
+    start_time = datetime.now()
+    print(f"Part 1 high score: {find_high_score(470, 72170)} Runtime {datetime.now() - start_time}")
+    start_time = datetime.now()
+    print(f"Part 2 high score: {find_high_score(470, 7217000)} Runtime {datetime.now() - start_time}")
