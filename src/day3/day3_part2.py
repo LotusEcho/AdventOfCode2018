@@ -2,6 +2,7 @@ import re, os
 from helper.input_output import file
 from collections import defaultdict
 
+
 class Claim:
     def __init__(self, claim_id, x, y, height, width):
         self.id = claim_id
@@ -9,6 +10,7 @@ class Claim:
         self.y = y
         self.height = height
         self.width = width
+
 
 def process_claims(claim_string, **kwargs):
     """
@@ -66,9 +68,10 @@ def reprocess_claims(claim_list, grid_dict):
     return None
 
 
-grid = defaultdict(int)
-args = {"grid": grid}
-filename = os.path.join(os.path.dirname(__file__), 'day3_input.txt')
-the_claims = file.load_file_iterative_function(filename, process_claims, **args)
-answer = reprocess_claims(the_claims[0], grid) 
-print(f"The good claim is claim#{answer}")
+if __name__ == "__main__":
+    grid = defaultdict(int)
+    args = {"grid": grid}
+    filename = os.path.join(os.path.dirname(__file__), 'day3_input.txt')
+    the_claims = file.load_file_iterative_function(filename, process_claims, **args)
+    answer = reprocess_claims(the_claims[0], grid)
+    print(f"The good claim is claim#{answer}")

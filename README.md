@@ -5,15 +5,17 @@ The Advent Of Code is a fun little set of puzzles laid out in the style of an Ad
 ## Structure
 I'll be laying this out in directories named day# with solution files for each part of the challenge. IE: 
 ```
-day1/
-├── day1_part1.py
-├── day1_part2.py
-├── day1_input.txt
+src/
+├── day1/
+├──── day1_part1.py
+├──── day1_part2.py
+├──── day1_input.txt
 
 ```
 
 ## Schedule
-I'll be posting my solution after I've completed it or after the leaderboard for that day is full (whichever is later).
+I'll be posting my solution after I've completed it or after the public leaderboard for that day is full (whichever is later).
+Most likely it'll be posted whenever I finish since the public leaderboard fills up in around 5 minutes usually.
 
 ## Don't Cheat
 Seriously, don't use my solutions to "solve" the Advent of code challenges. That's not in line with the spirit of the challenge.

@@ -42,5 +42,6 @@ def find_the_path(filename):
     return answer
 
 
-print(f"The answer is {find_the_path('day7_input.txt')}")
+if __name__ == "__main__":
+    print(f"The answer is {find_the_path('day7_input.txt')}")
 

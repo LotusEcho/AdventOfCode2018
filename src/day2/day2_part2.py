@@ -39,11 +39,12 @@ def compare_strings_in_list(list_of_strings):
             return compare_strings_in_list(list_of_strings)
 
 
-filename = os.path.join(os.path.dirname(__file__), 'day2_input.txt')
-line_list, matches = file.load_file_list_function(filename, str.rstrip, compare_strings_in_list)
-print(f"Real: Found matching strings '{matches[0]}' and '{matches[1]}'.")
-answer = ""
-for index in range(0, len(matches[0])):
-    if matches[0][index] == matches[1][index]:
-        answer = answer + matches[0][index]
-print(f"The answer is '{answer}'")
+if __name__ == "__main__":
+    filename = os.path.join(os.path.dirname(__file__), 'day2_input.txt')
+    line_list, matches = file.load_file_list_function(filename, str.rstrip, compare_strings_in_list)
+    print(f"Real: Found matching strings '{matches[0]}' and '{matches[1]}'.")
+    answer = ""
+    for index in range(0, len(matches[0])):
+        if matches[0][index] == matches[1][index]:
+            answer = answer + matches[0][index]
+    print(f"The answer is '{answer}'")

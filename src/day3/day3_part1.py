@@ -52,11 +52,11 @@ def find_cells_with_overlap(grid_dict):
             overlap += 1
     return overlap
 
+if __name__ == "__main__":
+    grid = defaultdict(int)
+    args = {"grid": grid}
+    filename = os.path.join(os.path.dirname(__file__), 'day3_input.txt')
+    file.load_file_iterative_function(filename, process_claims, **args)
+    overlapping = find_cells_with_overlap(grid)
 
-grid = defaultdict(int)
-args = {"grid": grid}
-filename = os.path.join(os.path.dirname(__file__), 'day3_input.txt')
-file.load_file_iterative_function(filename, process_claims, **args)
-overlapping = find_cells_with_overlap(grid)
-
-print(f"Number of overlapping cells is {overlapping}")
+    print(f"Number of overlapping cells is {overlapping}")

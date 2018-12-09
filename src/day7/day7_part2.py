@@ -60,6 +60,6 @@ def find_the_path(filename, total_workers, time_buffer):
         total_time += 1
     return answer, total_time
 
-
-process_answer, time = find_the_path('day7_input.txt', 5, 60)
-print(f"The answer is {process_answer} and it took {time}")
+if __name__ == "__main__":
+    process_answer, time = find_the_path('day7_input.txt', 5, 60)
+    print(f"The answer is {process_answer} and it took {time}")
