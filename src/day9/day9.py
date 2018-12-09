@@ -1,6 +1,7 @@
 from collections import defaultdict, deque
 from datetime import datetime
 
+
 def find_high_score(player_num, last_marble_value):
     """
     >>> find_high_score(7, 25)
@@ -34,10 +35,12 @@ def find_high_score(player_num, last_marble_value):
                 player_scores[player_id] += current_marble_value
                 current_index -= 7
                 if current_index < 0:
-                    current_index = marble_locations.index(marble_locations[current_index])
+                    current_index = len(marble_locations) + current_index
                 marble_to_remove = marble_locations[current_index]
                 player_scores[player_id] += marble_to_remove
-                marble_locations.remove(marble_to_remove)
+                marble_locations.rotate(-current_index)
+                marble_locations.popleft()
+                marble_locations.rotate(current_index)
             elif current_marble_value == 1 or len(marble_locations) == current_index + 2:
                 marble_locations.append(current_marble_value)
                 current_index = len(marble_locations)
