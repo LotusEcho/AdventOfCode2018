@@ -47,28 +47,7 @@ def no_game_no_life(seed, rules, iterations, print_list):
     starting_index = 0
 
     for iteration in range(0, iterations):
-        iteration_queue = deque()
-        for _ in range(0, 4):
-            pot_queue.append(0)
-            pot_queue.appendleft(0)
-        current_pot = "0000"
-        starting_index -= 6
-        while len(pot_queue) > 0:
-            current_pot += str(pot_queue.popleft())
-            if int(current_pot, 2) in rules:
-                iteration_queue.append(rules[int(current_pot, 2)])
-            else:
-                iteration_queue.append(0)
-            current_pot = current_pot[1:]
-        pot_queue = iteration_queue
-        while True:
-            if pot_queue[0] == 0:
-                pot_queue.popleft()
-                starting_index += 1
-            elif pot_queue[-1] == 0:
-                pot_queue.pop()
-            else:
-                break
+        pot_queue, starting_index = do_the_windy_thing(rules, pot_queue, starting_index)
         if print_list:
             print(''.join(map(str,pot_queue)))
 
@@ -80,6 +59,60 @@ def no_game_no_life(seed, rules, iterations, print_list):
         current_index += 1
 
     return running_sum
+
+
+def do_the_windy_thing(rules, pot_queue, starting_index):
+    iteration_queue = deque()
+    for _ in range(0, 4):
+        pot_queue.append(0)
+        pot_queue.appendleft(0)
+    current_pot = "0000"
+    starting_index -= 6
+    while len(pot_queue) > 0:
+        current_pot += str(pot_queue.popleft())
+        if int(current_pot, 2) in rules:
+            iteration_queue.append(rules[int(current_pot, 2)])
+        else:
+            iteration_queue.append(0)
+        current_pot = current_pot[1:]
+    pot_queue = iteration_queue
+    while True:
+        if pot_queue[0] == 0:
+            pot_queue.popleft()
+            starting_index += 1
+        elif pot_queue[-1] == 0:
+            pot_queue.pop()
+        else:
+            break
+    return pot_queue, starting_index
+
+
+def embrace_eternity(seed, rules):
+    pot_queue = deque(list(map(int, list(seed))))
+    starting_index = 0
+
+    previous_value = 0
+    previous_delta = 0
+    matches = 0
+    iterations = 0
+    running_sum = 0
+    while matches < 10000:
+        iterations += 1
+        pot_queue, starting_index = do_the_windy_thing(rules, pot_queue, starting_index)
+
+        running_sum = 0
+        current_index = starting_index
+        for pot in pot_queue:
+            if pot == 1:
+                running_sum += current_index
+            current_index += 1
+        current_delta = running_sum - previous_value
+        previous_value = running_sum
+        if current_delta == previous_delta:
+            matches += 1
+        previous_delta = current_delta
+
+    return iterations, running_sum, previous_delta
 
 
 if __name__ == "__main__":
@@ -96,6 +129,8 @@ if __name__ == "__main__":
     answer = no_game_no_life(my_seed, life_rules, 20, False)
     print(f"Part 1 answer was {answer} and took {datetime.now() - start_time}")
     start_time = datetime.now()
-    answer = no_game_no_life(my_seed, life_rules, 50000000000, False)
-    print(f"Part 2 answer was {answer} and took {datetime.now() - start_time}")
+    iter_num, iter_answer, iter_delta = embrace_eternity(my_seed, life_rules)
+    print(f"Stopped embracing eternity at {iter_num} with a value of {iter_answer} and a steady increase of {iter_delta}")
+    actual_answer = (50000000000 - iter_num) * iter_delta + iter_answer
+    print(f"Part 2 answer was {actual_answer} and took {datetime.now() - start_time}")
 
