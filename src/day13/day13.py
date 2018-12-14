@@ -131,10 +131,10 @@ def read_track_state(filename):
     return grid_x, grid_y, track_map
 
 
-def iterate_over_tracks(size_x, size_y, tracks, do_print):
+def iterate_over_tracks(size_x, size_y, tracks, do_print, stop_over_tracks):
     """
     >>> test_x, test_y, test_tracks = read_track_state('day13_simple_example.txt')
-    >>> iterate_over_tracks(test_x, test_y, test_tracks, True)
+    >>> iterate_over_tracks(test_x, test_y, test_tracks, True, True)
     |
     |
     v
@@ -152,9 +152,15 @@ def iterate_over_tracks(size_x, size_y, tracks, do_print):
     |
     |
     >>> test_x, test_y, test_tracks = read_track_state('day13_example.txt')
-    >>> iterate_over_tracks(test_x, test_y, test_tracks, False)
+    >>> iterate_over_tracks(test_x, test_y, test_tracks, False, True)
     Collision at 7,3
-
+    >>> test_x, test_y, test_tracks = read_track_state('day13_part2_example.txt')
+    >>> iterate_over_tracks(test_x, test_y, test_tracks, False, False)
+    Collision at 2,0
+    Collision at 2,4
+    Collision at 6,4
+    Collision at 2,4
+    Final cart: 6,4
 
     :param size_x: The max x of the grid
     :param size_y: The max y of the grid
@@ -182,10 +188,13 @@ def iterate_over_tracks(size_x, size_y, tracks, do_print):
                                 new_track = tracks[new_position]
                                 if new_track.cart is not None:
                                     current_track.cart = None
-                                    new_track.cart.direction = 'X'
-                                    collision = True
                                     print(f"Collision at {new_position}")
-                                    break
+                                    if stop_over_tracks:
+                                        new_track.cart.direction = 'X'
+                                        collision = True
+                                        break
+                                    else:
+                                        new_track.cart = None
                                 else:
                                     new_track.cart = current_cart
                                     current_track.cart = None
@@ -205,6 +214,14 @@ def iterate_over_tracks(size_x, size_y, tracks, do_print):
 
         if collision:
             break
+        elif sum(tracks.values()) <= 1:
+            for printy in range(0, size_y):
+                for printx in range(0, size_x):
+                    current_coords = f"{printx},{printy}"
+                    if current_coords in tracks:
+                        if tracks[current_coords].cart is not None:
+                            print(f"Final cart: {tracks[current_coords].cart.loc_key()}")
+            break
         if do_print:
             print("Next iteration")
 
@@ -212,4 +229,9 @@ def iterate_over_tracks(size_x, size_y, tracks, do_print):
 if __name__ == "__main__":
     start_time = datetime.now()
     real_x, real_y, real_tracks = read_track_state('day13_input.txt')
-    iterate_over_tracks(real_x, real_y, real_tracks, False)
+    print("Part one answer:")
+    iterate_over_tracks(real_x, real_y, real_tracks, False, True)
+
+    print("Part two answer:")
+    real_x, real_y, real_tracks = read_track_state('day13_input.txt')
+    iterate_over_tracks(real_x, real_y, real_tracks, False, False)
